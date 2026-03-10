@@ -6,14 +6,12 @@ st.title("AI PDF Research Agent")
 uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 question = st.text_input("Ask a question about the PDF")
 
-WEBHOOK_URL = "PUT_YOUR_N8N_WEBHOOK_URL_HERE"
+WEBHOOK_URL = "https://baderalessa.app.n8n.cloud/webhook/pdf-agent"
 
 if st.button("Analyze"):
-
     if uploaded_file and question:
-
         files = {
-            "file": uploaded_file.getvalue()
+            "file": (uploaded_file.name, uploaded_file.getvalue(), "application/pdf")
         }
 
         data = {
@@ -24,6 +22,5 @@ if st.button("Analyze"):
 
         st.subheader("AI Response")
         st.write(response.text)
-
     else:
         st.warning("Please upload a PDF and ask a question.")
